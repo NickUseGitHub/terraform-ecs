@@ -35,3 +35,6 @@ $ AWS_PROFILE=<YOUR_AWS_PROFILE> terraform <TERRAFORM_COMMAND>
 ```
 
 > Ref: [https://github.com/hashicorp/terraform/issues/18774#issuecomment-625947639](https://github.com/hashicorp/terraform/issues/18774#issuecomment-625947639)
+
+### ECS's task cannot pull image
+> Ref: [https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_cannot_pull_image.html](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_cannot_pull_image.html)

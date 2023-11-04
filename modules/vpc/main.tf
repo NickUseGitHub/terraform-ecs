@@ -46,6 +46,17 @@ resource "aws_subnet" "nick_subnet_public" {
   }
 }
 
+resource "aws_subnet" "nick_subnet_public_1" {
+  vpc_id                  = aws_vpc.nick_vpc.id
+  cidr_block              = "10.0.4.0/24"
+  map_public_ip_on_launch = false
+  availability_zone       = "${data.aws_region.current.name}b"
+
+  tags = {
+    Name = "nick_subnet_public_1"
+  }
+}
+
 # Private Subnet
 resource "aws_subnet" "nick_subnet_private" {
   vpc_id                  = aws_vpc.nick_vpc.id
@@ -93,6 +104,11 @@ resource "aws_route" "private_nat_gateway" {
 # Route table associations for both Public & Private Subnets
 resource "aws_route_table_association" "public" {
   subnet_id      = element(aws_subnet.nick_subnet_public.*.id, 1)
+  route_table_id = aws_route_table.nick_public_route_table.id
+}
+
+resource "aws_route_table_association" "public_1" {
+  subnet_id      = element(aws_subnet.nick_subnet_public_1.*.id, 1)
   route_table_id = aws_route_table.nick_public_route_table.id
 }
 
