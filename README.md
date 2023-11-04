@@ -1,4 +1,6 @@
-# Init project
+# ECS with terraform
+
+## Init project
 
 ### Set up environment
 - first install terraform via brew
@@ -20,6 +22,41 @@ secret_key = "<YOUR_SECRET_KEY>"
 ```
 $ terraform init
 ```
+
+### Set IAM for Terraform user
+Config Policy with these
+```
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Effect": "Allow",
+			"Action": [
+				"s3:*",
+				"s3-object-lambda:*",
+				"ec2:*",
+				"elasticloadbalancing:*",
+				"ecs:*",
+				"iam:Get*",
+				"iam:List*",
+				"iam:AttachRolePolicy",
+				"iam:CreateRole",
+				"iam:CreatePolicy",
+				"iam:DeletePolicy",
+				"iam:DeleteRole",
+				"iam:DetachRolePolicy",
+				"iam:PassRole",
+				"iam:PutRolePolicy"
+			],
+			"Resource": "*"
+		}
+	]
+}
+```
+
+## Ref
+You can follow how to create ECS walkthrough with this web
+[https://engineering.finleap.com/posts/2020-02-20-ecs-fargate-terraform/](https://engineering.finleap.com/posts/2020-02-20-ecs-fargate-terraform/)
 
 ## Issues on this project
 
