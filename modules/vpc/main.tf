@@ -28,7 +28,7 @@ resource "aws_eip" "nat_eip" {
 resource "aws_nat_gateway" "nat" {
   allocation_id = aws_eip.nat_eip.id
   subnet_id     = element(aws_subnet.nick_subnet_public.*.id, 0)
-  depends_on = [aws_subnet.nick_subnet_public]
+  depends_on    = [aws_subnet.nick_subnet_public]
 
   tags = {
     Name = "nat"
@@ -63,7 +63,7 @@ resource "aws_route_table" "nick_private_route_table" {
   vpc_id = aws_vpc.nick_vpc.id
 
   tags = {
-    Name        = "nick_private_route_table"
+    Name = "nick_private_route_table"
   }
 }
 
@@ -72,7 +72,7 @@ resource "aws_route_table" "nick_public_route_table" {
   vpc_id = aws_vpc.nick_vpc.id
 
   tags = {
-    Name        = "nick_public_route_table"
+    Name = "nick_public_route_table"
   }
 }
 
@@ -110,16 +110,16 @@ resource "aws_security_group" "nick_default" {
     aws_vpc.nick_vpc
   ]
 
-    ingress {
-    from_port = "0"
-    to_port   = "0"
+  ingress {
+    from_port = 0
+    to_port   = 0
     protocol  = "-1"
     self      = true
   }
 
   egress {
-    from_port = "0"
-    to_port   = "0"
+    from_port = 0
+    to_port   = 0
     protocol  = "-1"
     self      = "true"
   }
