@@ -46,13 +46,24 @@ Config Policy with these
 				"iam:DeleteRole",
 				"iam:DetachRolePolicy",
 				"iam:PassRole",
-				"iam:PutRolePolicy"
+				"iam:PutRolePolicy",
+				"route53:CreateHostedZone",
+				"route53domains:RegisterDomain",
+				"route53resolver:CreateResolverEndpoint",
+				"servicediscovery:Create*",
+				"servicediscovery:Delete*",
+				"servicediscovery:Get*",
+				"servicediscovery:List*"
 			],
 			"Resource": "*"
 		}
 	]
 }
 ```
+
+### Create AWS's service discovery for internal route in ECS's instances
+> Ref: [ECS Integrated Service Discovery - https://medium.com/inspiredbrilliance/ecs-integrated-service-discovery-18cdbce45d8b
+](https://medium.com/inspiredbrilliance/ecs-integrated-service-discovery-18cdbce45d8b)
 
 ## Ref
 You can follow how to create ECS walkthrough with this web
@@ -63,15 +74,6 @@ You can follow how to create ECS walkthrough with this web
 ### Init backend.conf with S3 but not put terraform.tfstate on S3
 > Fix on: [https://stackoverflow.com/a/69664785](https://stackoverflow.com/a/69664785)
 
-### Terraform S3 Backend does not recognize multiple AWS credentials
-> Run command with prefix command `AWS_PROFILE=<YOUR_AWS_PROFILE>`
-
-```
-# Example
-$ AWS_PROFILE=<YOUR_AWS_PROFILE> terraform <TERRAFORM_COMMAND>
-```
-
-> Ref: [https://github.com/hashicorp/terraform/issues/18774#issuecomment-625947639](https://github.com/hashicorp/terraform/issues/18774#issuecomment-625947639)
 
 ### ECS's task cannot pull image
 > Ref: [https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_cannot_pull_image.html](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_cannot_pull_image.html)

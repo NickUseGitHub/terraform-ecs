@@ -194,6 +194,31 @@ resource "aws_alb_listener" "http" {
     type             = "forward"
   }
 }
+#############################################
+
+# Service discovery
+resource "aws_service_discovery_private_dns_namespace" "service_discovery_dns" {
+  name = "nick.com"
+  description = "dns for ECS's service"
+  vpc = var.vpc_instance.id
+}
+
+resource "aws_service_discovery_service" "frontend" {
+  name = "frontend"
+  dns_config {
+    namespace_id = aws_service_discovery_private_dns_namespace.service_discovery_dns.id
+    routing_policy = "MULTIVALUE"
+
+    dns_records {
+      ttl = 10
+      type = "A"
+    }
+  }
+
+  health_check_custom_config {
+    failure_threshold = 5
+  }
+}
 
 #############################################
 
@@ -207,6 +232,7 @@ resource "aws_ecs_service" "nick_service" {
  deployment_maximum_percent         = 200
  launch_type                        = "FARGATE"
  scheduling_strategy                = "REPLICA"
+ depends_on = [aws_service_discovery_service.frontend]
  
  network_configuration {
    security_groups  = [aws_security_group.tg.id]
@@ -214,6 +240,10 @@ resource "aws_ecs_service" "nick_service" {
    assign_public_ip = true
  }
  
+  service_registries {
+    registry_arn = aws_service_discovery_service.frontend.arn
+  }
+
  load_balancer {
    target_group_arn = aws_alb_target_group.nick_target_group.id
    container_name   = "nick-container"
