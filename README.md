@@ -20,7 +20,7 @@ secret_key = "<YOUR_SECRET_KEY>"
 
 - run init command
 ```
-$ terraform init
+$ terraform init -backend-config=backend.conf
 ```
 
 ### Set IAM for Terraform user
