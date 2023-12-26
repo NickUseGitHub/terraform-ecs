@@ -23,6 +23,11 @@ secret_key = "<YOUR_SECRET_KEY>"
 $ terraform init -backend-config=backend.conf
 ```
 
+### Configure Terraform to use your AWS Account
+
+> Use Way3
+> Ref: [https://banhawy.medium.com/3-ways-to-configure-terraform-to-use-your-aws-account-fb00a08ded5](https://banhawy.medium.com/3-ways-to-configure-terraform-to-use-your-aws-account-fb00a08ded5)
+
 ### Set IAM for Terraform user
 Config Policy with these
 ```
